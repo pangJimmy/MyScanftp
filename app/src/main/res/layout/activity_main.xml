@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+             >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_1"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="操作类型:" />
+
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="50dp"
+                    android:layout_margin="5dp"
+                    android:padding="3dp" >
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_2"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="条码信息:" />
+
+                <EditText
+                    android:id="@+id/editText_info_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    android:text="123"
+                    android:padding="3dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_3"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息3:" />
+
+                <EditText
+                    android:id="@+id/editText_info_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp"
+                    android:padding="3dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_4"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息4:" />
+
+                <EditText
+                    android:id="@+id/editText_info_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp"
+                    android:padding="3dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_5"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息5:" />
+
+                <EditText
+                    android:id="@+id/editText_info_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_6"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息6:" />
+
+                <EditText
+                    android:id="@+id/editText_info_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_7"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息7:" />
+
+                <EditText
+                    android:id="@+id/editText_info_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_8"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息8:" />
+
+                <EditText
+                    android:id="@+id/editText_info_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_9"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息9:" />
+
+                <EditText
+                    android:id="@+id/editText_info_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_10"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息10:" />
+
+                <EditText
+                    android:id="@+id/editText_info_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_11"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息11:" />
+
+                <EditText
+                    android:id="@+id/editText_info_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_12"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息12:" />
+
+                <EditText
+                    android:id="@+id/editText_info_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_13"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息13:" />
+
+                <EditText
+                    android:id="@+id/editText_info_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_14"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息14:" />
+
+                <EditText
+                    android:id="@+id/editText_info_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:padding="3dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_15"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息15:" />
+
+                <EditText
+                    android:id="@+id/editText_info_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_16"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息16:" />
+
+                <EditText
+                    android:id="@+id/editText_info_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_17"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息17:" />
+
+                <EditText
+                    android:id="@+id/editText_info_17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_18"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息18:" />
+
+                <EditText
+                    android:id="@+id/editText_info_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_19"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息19:" />
+
+                <EditText
+                    android:id="@+id/editText_info_19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_20"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息20:" />
+
+                <EditText
+                    android:id="@+id/editText_info_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:padding="3dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_21"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息21:" />
+
+                <EditText
+                    android:id="@+id/editText_info_21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_22"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息22:" />
+
+                <EditText
+                    android:id="@+id/editText_info_22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_23"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息23:" />
+
+                <EditText
+                    android:id="@+id/editText_info_23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:padding="3dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_24"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息24:" />
+
+                <EditText
+                    android:id="@+id/editText_info_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:padding="3dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_25"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息25:" />
+
+                <EditText
+                    android:id="@+id/editText_info_25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:padding="3dp"
+                    android:visibility="gone"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                  >
+
+                <TextView
+                    android:id="@+id/textView_info_26"
+                    style="@style/NormalContentFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="信息26:" />
+
+                <EditText
+                    android:id="@+id/editText_info_26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_back"
+                    android:ems="10"
+                    android:minHeight="50dp"
+                    android:visibility="gone"
+                    android:padding="3dp"
+                    android:layout_margin="5dp" >
+                </EditText>
+            </LinearLayout>
+            <Button 
+                        android:id="@+id/button_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="上传"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

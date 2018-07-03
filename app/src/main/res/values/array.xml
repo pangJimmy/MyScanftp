@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_type">
+        <item >采购收货入库</item>
+        <item >销售退货入库</item>
+        <item >生产产品入库</item>
+        <item >领用退还入库</item>
+        <item >借货入库</item>
+        <item >借出入库</item>
+    </string-array>
+    
+    <string-array name="bad_type">
+        <item >损坏报损</item>
+        <item >丢失报损</item>
+    </string-array>
+    
+    
+        <string-array name="order_status">
+        <item >等待审核</item>
+        <item >审核成功</item>
+        <item >审核失败</item>
+        <item >上架中</item>
+        <item >订单完成</item>
+    </string-array>
+    
+        <string-array name="order_outstore_status">
+        <item >等待拣选</item>
+        <item >审核成功</item>
+        <item >审核失败</item>
+        <item >拣选中</item>
+        <item >等待审核</item>
+    </string-array>
+    
+        <string-array name="order_check_stock_status">
+        <item >等待盘点</item>
+        <item >审核成功</item>
+        <item >审核失败</item>
+        <item >盘点中</item>
+        <item >等待审核</item>
+    </string-array>
+    <string-array name="order_move_status">
+        <item >等待移库</item>
+        <item >审核成功</item>
+        <item >审核失败</item>
+        <item >移库中</item>
+        <item >等待审核</item>
+    </string-array>
+</resources>
