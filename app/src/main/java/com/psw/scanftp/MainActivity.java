@@ -166,10 +166,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
-//        if(scanDevice != null){
-//            scanDevice.openScan() ;
-//            scanDevice.setOutScanMode(0);//接收广播
-//        }
+        if(scanDevice != null){
+            scanDevice.openScan() ;
+            scanDevice.setOutScanMode(0);//接收广播
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction(SCAN_ACTION);
         registerReceiver(scanReceiver, filter);
@@ -388,6 +388,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     String username = "test" ;
     String password = "test" ;
     String path = "/" ;
+    String unfinishPath = "/mnt/sdcard/Scanftp/unfinish" ;
+    String finishPath = "/mnt/sdcard/Scanftp/finish" ;
     private AsyncTask<String, Void, Boolean> uploadTask = new AsyncTask<String, Void, Boolean>(){
         @Override
         protected void onPreExecute() {
@@ -406,10 +408,15 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 password = shared.getPassword() ;
                 //要写入的文件
                 fis = new FileInputStream(new File(upFilepath + params[0]));
-                url = "192.168.1.106" ;
-                port = 21 ;
+//                url = "192.168.1.106" ;
+//                port = 21 ;
                 flag = ftp.upload(url, port, username, password, path, params[0], fis) ;
-
+                //如果上传失败，把文件放到unfinish
+                if (!flag) {
+                    FileUtil.cutFile(upFilepath, params[0], unfinishPath, params[0]);
+                }else{
+                    FileUtil.cutFile(upFilepath, params[0], finishPath, params[0]);
+                }
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -423,6 +430,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             dialogLoading.cancel() ;
             if(result){
                 ToastShow("上传成功") ;
+
             }else{
                 ToastShow("上传失败") ;
             }
@@ -430,6 +438,11 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     } ;
 
     private String upFilepath = "mnt/sdcard/Scanftp/" ;
+    /*生成文件信息如下
+    [出库]
+    [条码信息]
+    123,11,22,33,44,55,66,77
+     */
     private void saveInfo(String fileName){
         String info = "[" + workTypes +"]"+ "\r\n" + "[条码信息]"+"\r\n";
         String temp = "" ;
@@ -446,7 +459,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         String[] bs = barcode.split("\r\n") ;
         if(bs != null){
             for(String b: bs){
-                tt = tt + b + temp +"\r\n" ;
+                tt = tt + b + ","+ temp +"\r\n" ;
             }
         }
         info = info + tt ;
