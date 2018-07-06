@@ -159,7 +159,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             Log.e("", conf) ;
         }
         shared = new SharedFile(this) ;
-//		scanDevice = new ScanDevice() ;
+		scanDevice = new ScanDevice() ;
         initView() ;
     }
 
@@ -459,7 +459,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         String[] bs = barcode.split("\r\n") ;
         if(bs != null){
             for(String b: bs){
-                tt = tt + b + ","+ temp +"\r\n" ;
+                tt = tt + b +  temp +"\r\n" ;
             }
         }
         info = info + tt ;
