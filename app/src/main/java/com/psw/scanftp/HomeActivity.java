@@ -1,17 +1,21 @@
 package com.psw.scanftp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.psw.scanftp.base.MBaseActivity;
+import com.psw.scanftp.util.SharedFile;
+
 //主界面
 public class HomeActivity extends MBaseActivity implements OnClickListener{
 
     private Button btnWork ;
     private Button btnSettings ;
+    private SharedFile share ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -20,6 +24,7 @@ public class HomeActivity extends MBaseActivity implements OnClickListener{
         setTitle("主界面") ;
         setBtnBackClickable(false) ;
         setCancelUnvisible() ;
+        share = new SharedFile(this) ;
         initView() ;
 
     }
@@ -29,6 +34,7 @@ public class HomeActivity extends MBaseActivity implements OnClickListener{
         btnSettings = (Button) findViewById(R.id.button_settings) ;
         btnWork.setOnClickListener(this) ;
         btnSettings.setOnClickListener(this) ;
+        ((Button) findViewById(R.id.button_search)).setOnClickListener(this);
 
     }
 
@@ -41,6 +47,12 @@ public class HomeActivity extends MBaseActivity implements OnClickListener{
                 break;
             case R.id.button_settings:
                 intent = new Intent(this, SettingsActivity.class) ;
+                break;
+
+            case R.id.button_search:
+                Uri uri = Uri.parse(share.getSearchAddr());
+                intent = new Intent(Intent.ACTION_VIEW, uri);
+
                 break;
 
             default:

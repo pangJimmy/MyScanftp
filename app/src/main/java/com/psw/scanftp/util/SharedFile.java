@@ -35,7 +35,7 @@ public class SharedFile {
 
 	/**
 	 * 保存端口
-	 * @param ftp
+	 * @param port
 	 */
 	public void setPort(String port){
 		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
@@ -55,7 +55,7 @@ public class SharedFile {
 
 	/**
 	 * 保存账号
-	 * @param ftp
+	 * @param account
 	 */
 	public void setAccount(String account){
 		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
@@ -75,7 +75,7 @@ public class SharedFile {
 
 	/**
 	 * 保存密码
-	 * @param ftp
+	 * @param password
 	 */
 	public void setPassword(String password){
 		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
@@ -91,5 +91,25 @@ public class SharedFile {
 	public String getPassword(){
 		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
 		return shared.getString("password", "test") ;
+	}
+
+	/**
+	 * 保存查询网址
+	 * @param password
+	 */
+	public void setSearchAddr(String password){
+		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
+		Editor editor = shared.edit() ;
+		editor.putString("search_addr", password) ;
+		editor.commit() ;
+	}
+
+	/**
+	 * 获取查询网址
+	 * @return
+	 */
+	public String getSearchAddr(){
+		SharedPreferences shared = context.getSharedPreferences("config", Context.MODE_PRIVATE) ;
+		return shared.getString("search_addr", "http://www.baidu.com") ;
 	}
 }

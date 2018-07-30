@@ -18,12 +18,15 @@ public class SettingsActivity extends MBaseActivity implements OnClickListener{
     private EditText editPort ;
     private EditText editAccount ;
     private EditText editPassword ;
+    private EditText editSearch ;
     private Button btnOk ;
 
     private String ftp ;
     private String port ;
     private String account ;
     private String password ;
+
+    private String search ;
 
     private SharedFile shared ;
     @Override
@@ -42,16 +45,20 @@ public class SettingsActivity extends MBaseActivity implements OnClickListener{
         editPort = (EditText) findViewById(R.id.editText_port) ;
         editAccount = (EditText) findViewById(R.id.editText_account) ;
         editPassword = (EditText) findViewById(R.id.editText_password) ;
+
+        editSearch = (EditText) findViewById(R.id.editText_search) ;
         btnOk = (Button) findViewById(R.id.button_ok)  ;
         ftp = shared.getFtp() ;
         port = shared.getPort() ;
         account = shared.getAccount() ;
         password = shared.getPassword() ;
+        search = shared.getSearchAddr() ;
 
         editAccount.setText(account) ;
         editFtp.setText(ftp) ;
         editPassword.setText(password) ;
         editPort.setText(port) ;
+        editSearch.setText(search) ;
 
         btnOk.setOnClickListener(this) ;
     }
@@ -61,7 +68,7 @@ public class SettingsActivity extends MBaseActivity implements OnClickListener{
         switch (v.getId()) {
             case R.id.button_ok:
                 if(saveConfig() ){
-                    Toast.makeText(getApplicationContext(), "保存成功", 0).show()  ;
+                    Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_SHORT).show()  ;
                 }
                 break;
 
@@ -77,14 +84,14 @@ public class SettingsActivity extends MBaseActivity implements OnClickListener{
         port = editPort.getText().toString() ;
         account = editAccount.getText().toString() ;
         password = editPassword.getText().toString() ;
-
+        search = editSearch.getText().toString() ;
         if(ftp == null || ftp.length() == 0){
-            Toast.makeText(this, "请输入FTP地址", 0).show() ;
+            Toast.makeText(this, "请输入FTP地址", Toast.LENGTH_SHORT).show() ;
             return false ;
         }
 
         if(port == null || port.length() == 0){
-            Toast.makeText(this, "请输入端口号", 0).show() ;
+            Toast.makeText(this, "请输入端口号", Toast.LENGTH_SHORT).show() ;
             return false ;
         }
 
@@ -101,7 +108,7 @@ public class SettingsActivity extends MBaseActivity implements OnClickListener{
         shared.setAccount(account) ;
         shared.setPassword(password) ;
         shared.setPort(port) ;
-
+        shared.setSearchAddr(search) ;
         return true ;
     }
 }

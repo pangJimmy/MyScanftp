@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.psw.scanftp.base.MBaseActivity;
@@ -31,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //主界面
 public class MainActivity extends MBaseActivity implements OnClickListener{
@@ -129,6 +131,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private final static String SCAN_ACTION = "scan.rcv.message";
     private ScanDevice scanDevice ;
     String barcodeStr ;
+    //条码集合
+    private HashSet<String> barcodeSet =  new HashSet<String>();
+    //文件名称
+    private String fileName ;
     //扫描接收广播
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
 
@@ -139,7 +145,30 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             byte temp = intent.getByteExtra("barcodeType", (byte) 0);
             android.util.Log.e("debug", "----codetype--" + temp);
             barcodeStr = new String(barocode, 0, barocodelen);
-            edit2.append(barcodeStr+ ",\r\n") ;
+            if (barcodeSet.isEmpty()) {
+                //第一次添加
+                barcodeSet.add(barcodeStr) ;
+                edit2.append(barcodeStr+ ",\r\n") ;
+                //创建文件
+                String fileName = Utils.getDate() + ".txt" ;
+                MainActivity.this.fileName = fileName ;
+                String info = "[" + workTypes +"]"+ "\r\n" + "[条码信息]"+"\r\n";
+                info =info + genSingleLine(barcodeStr);
+                //写入文件
+                writeToFile(fileName, info);
+            }else{
+                //集合中不包含，则添加
+                if (!barcodeSet.contains(barcodeStr)) {
+                    barcodeSet.add(barcodeStr) ;
+                    edit2.append(barcodeStr+ ",\r\n") ;
+                    //写入文件
+                    writeToFile(fileName, genSingleLine(barcodeStr));
+                }else{
+                    //集合中包含则提示
+                    ToastShow("该条码已扫");
+                }
+            }
+
             // tvResult.setText(barcodeStr);
             //写入TXT中
             scanDevice.stopScan();
@@ -159,7 +188,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             Log.e("", conf) ;
         }
         shared = new SharedFile(this) ;
-//		scanDevice = new ScanDevice() ;
+		scanDevice = new ScanDevice() ;
         initView() ;
     }
 
@@ -430,12 +459,61 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             dialogLoading.cancel() ;
             if(result){
                 ToastShow("上传成功") ;
+                fileName = null ;
+                barcodeSet.clear();
+                listEdit.get(0).setText("");
+//                initView();
 
             }else{
-                ToastShow("上传失败") ;
+                ToastShow("上传失败,文件保存在unfinish目录下") ;
+                fileName = null ;
+                barcodeSet.clear();
+                listEdit.get(0).setText("");
+//                initView();
             }
-        };
+        }
     } ;
+
+
+    /**
+     * 生成单行数据
+     * @return
+     */
+    private String genSingleLine(String barcodeStr) {
+        String temp =barcodeStr +  "," ;
+        for(int i = 1 ; i < listConfig.size(); i++){
+            if(i == listConfig.size() - 1){
+
+                temp = temp + listEdit.get(i).getText().toString() + "\r\n";
+            }else {
+                temp = temp + listEdit.get(i).getText().toString() + ",";
+            }
+        }
+        return temp ;
+    }
+
+    /**
+     * 将数据写入文件
+     * @param fileName
+     * @param temp
+     */
+    private void writeToFile(String fileName, String temp) {
+        try{
+
+            //
+            File pathFile = new File(upFilepath) ;
+            if(!pathFile.exists()){
+                pathFile.mkdirs() ;
+            }
+            File desFile = new File(upFilepath + fileName) ;
+            FileWriter fw = new FileWriter(desFile,true) ;
+            fw.write(temp) ;
+            fw.flush() ;
+            fw.close() ;
+        }catch(Exception e){
+
+        }
+    }
 
     private String upFilepath = "mnt/sdcard/Scanftp/" ;
     /*生成文件信息如下
@@ -459,7 +537,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         String[] bs = barcode.split("\r\n") ;
         if(bs != null){
             for(String b: bs){
-                tt = tt + b + ","+ temp +"\r\n" ;
+                tt = tt + b + temp +"\r\n" ;
             }
         }
         info = info + tt ;
@@ -483,9 +561,14 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
+        /*20180730 改变流程
         String fileName = Utils.getDate() + ".txt" ;
         saveInfo(fileName) ;
-        uploadTask.execute(fileName) ;
+        */
+        if (fileName != null) {
+            uploadTask.execute(fileName) ;
+        }
+
 
     }
 }
