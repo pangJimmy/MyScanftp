@@ -430,11 +430,14 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             FTPutil ftp = new FTPutil() ;
             FileInputStream fis;
             boolean flag  = false ;
+            //未上传的文件
+            List<String> listUpdateFiles ;
             try {
                 url = shared.getFtp() ;
                 port = Integer.valueOf(shared.getPort()) ;
                 username = shared.getAccount() ;
                 password = shared.getPassword() ;
+
                 //要写入的文件
                 fis = new FileInputStream(new File(upFilepath + params[0]));
 //                url = "192.168.1.106" ;
@@ -445,6 +448,34 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                     FileUtil.cutFile(upFilepath, params[0], unfinishPath, params[0]);
                 }else{
                     FileUtil.cutFile(upFilepath, params[0], finishPath, params[0]);
+                }
+                //先上传跟目录的
+                listUpdateFiles = FileUtil.getFiles(upFilepath) ;
+                if(listUpdateFiles != null && !listUpdateFiles.isEmpty()){
+                    for (String fileName : listUpdateFiles) {
+                        fis = new FileInputStream(new File(upFilepath +fileName));
+                        flag = ftp.upload(url, port, username, password, path, fileName, fis) ;
+                        //如果上传失败，把文件放到unfinish
+                        if (!flag) {
+                            FileUtil.cutFile(upFilepath, fileName, unfinishPath, fileName);
+                        }else{
+                            FileUtil.cutFile(upFilepath, fileName, finishPath, fileName);
+                        }
+                    }
+                }
+                //再上传unfinish目录的
+                listUpdateFiles = FileUtil.getFiles(unfinishPath) ;
+                if(listUpdateFiles != null && !listUpdateFiles.isEmpty()){
+                    for (String fileName : listUpdateFiles) {
+                        fis = new FileInputStream(new File(unfinishPath+"/" +fileName));
+                        flag = ftp.upload(url, port, username, password, path, fileName, fis) ;
+                        //如果上传失败，把文件放到unfinish
+                        if (!flag) {
+//                            FileUtil.cutFile(unfinishPath, fileName, unfinishPath,fileName);
+                        }else{
+                            FileUtil.cutFile(unfinishPath, fileName, finishPath, fileName);
+                        }
+                    }
                 }
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -567,6 +598,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         */
         if (fileName != null) {
             uploadTask.execute(fileName) ;
+        }else{
+            ToastShow("请扫条码");
         }
 
 

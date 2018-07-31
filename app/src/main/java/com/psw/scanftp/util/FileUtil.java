@@ -194,4 +194,32 @@ public class FileUtil {
 
 		return list ;
 	}
+
+
+	/***
+	 * 获取目录下的所有文件
+	 * @param dir
+	 * @return
+	 */
+	public static List<String> getFiles(String dir) {
+		ArrayList<String> files = new ArrayList<String>() ;
+		File[] fs ;
+		File dirFile = new File(dir);
+		//目录还未创建则不管
+		if (!dirFile.exists()) {
+			return null ;
+		}
+		fs = dirFile.listFiles() ;
+		if (fs != null && fs.length > 0) {
+			for (File f : fs) {
+
+				if(f.getName().endsWith("txt")){
+					files.add(f.getName()) ;
+					Log.e("getFiles", "fileName = " + f.getName()) ;
+				}
+			}
+		}
+
+		return files ;
+	}
 }
