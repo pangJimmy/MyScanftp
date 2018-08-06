@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.psw.scanftp.base.MBaseActivity;
 import com.psw.scanftp.util.FTPutil;
@@ -132,9 +133,9 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private ScanDevice scanDevice ;
     String barcodeStr ;
     //条码集合
-    private HashSet<String> barcodeSet =  new HashSet<String>();
+    private Set<String> barcodeSet =  null;
     //文件名称
-    private String fileName ;
+    private String fileName = null ;
     //扫描接收广播
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
 
@@ -145,7 +146,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             byte temp = intent.getByteExtra("barcodeType", (byte) 0);
             android.util.Log.e("debug", "----codetype--" + temp);
             barcodeStr = new String(barocode, 0, barocodelen);
-            if (barcodeSet.isEmpty()) {
+            if ( (barcodeSet == null|| barcodeSet.isEmpty()) && fileName == null) {
                 //第一次添加
                 barcodeSet.add(barcodeStr) ;
                 edit2.append(barcodeStr+ ",\r\n") ;
@@ -187,6 +188,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         for(String conf : listConfig){
             Log.e("", conf) ;
         }
+        barcodeSet =  new HashSet<>() ;
         shared = new SharedFile(this) ;
 		scanDevice = new ScanDevice() ;
         initView() ;
@@ -202,7 +204,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         IntentFilter filter = new IntentFilter();
         filter.addAction(SCAN_ACTION);
         registerReceiver(scanReceiver, filter);
-    };
+    }
 
     @Override
     protected void onPause() {
@@ -419,7 +421,11 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     String path = "/" ;
     String unfinishPath = "/mnt/sdcard/Scanftp/unfinish" ;
     String finishPath = "/mnt/sdcard/Scanftp/finish" ;
-    private AsyncTask<String, Void, Boolean> uploadTask = new AsyncTask<String, Void, Boolean>(){
+
+    /**
+     * 写成内部类
+     */
+    class UploadTask extends AsyncTask<String, Void, Boolean>{
         @Override
         protected void onPreExecute() {
             createLoaddingDialog("正在上传文件") ;
@@ -597,7 +603,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         saveInfo(fileName) ;
         */
         if (fileName != null) {
-            uploadTask.execute(fileName) ;
+
+                UploadTask task = new UploadTask();
+                task.execute(fileName);
+
         }else{
             ToastShow("请扫条码");
         }
