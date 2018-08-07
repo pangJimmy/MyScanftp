@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.psw.scanftp.base.MBaseActivity;
+import com.psw.scanftp.db.DBServer;
+import com.psw.scanftp.entity.Barcode;
 import com.psw.scanftp.util.FTPutil;
 import com.psw.scanftp.util.FileUtil;
 import com.psw.scanftp.util.SharedFile;
@@ -136,6 +138,9 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private Set<String> barcodeSet =  null;
     //文件名称
     private String fileName = null ;
+    private DBServer dbServer ;
+    //时间
+    String date ;
     //扫描接收广播
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
 
@@ -146,17 +151,33 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             byte temp = intent.getByteExtra("barcodeType", (byte) 0);
             android.util.Log.e("debug", "----codetype--" + temp);
             barcodeStr = new String(barocode, 0, barocodelen);
+            //先查询数据库中此条码是否上传过
+            Barcode bar = dbServer.queryBarcode(barcodeStr) ;
+            if(bar != null){
+                //if(bar.getIsUpload()){
+                    ToastShow("此条码已扫过");
+                    return ;
+               // }
+            }
+
+            bar = new Barcode() ;
+            bar.setBarcode(barcodeStr);
             if ( (barcodeSet == null|| barcodeSet.isEmpty()) && fileName == null) {
                 //第一次添加
                 barcodeSet.add(barcodeStr) ;
                 edit2.append(barcodeStr+ ",\r\n") ;
                 //创建文件
-                String fileName = Utils.getDate() + ".txt" ;
+                date = Utils.getDate() ;
+                String fileName = date + ".txt" ;
                 MainActivity.this.fileName = fileName ;
                 String info = "[" + workTypes +"]"+ "\r\n" + "[条码信息]"+"\r\n";
                 info =info + genSingleLine(barcodeStr);
                 //写入文件
                 writeToFile(fileName, info);
+                //写入数据库
+                bar.setUpload(false);
+                bar.setDate(fileName);
+                dbServer.insertBarcode(bar) ;
             }else{
                 //集合中不包含，则添加
                 if (!barcodeSet.contains(barcodeStr)) {
@@ -164,6 +185,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                     edit2.append(barcodeStr+ ",\r\n") ;
                     //写入文件
                     writeToFile(fileName, genSingleLine(barcodeStr));
+                    //写入数据库
+                    bar.setUpload(false);
+                    bar.setDate(fileName);
+                    dbServer.insertBarcode(bar) ;
                 }else{
                     //集合中包含则提示
                     ToastShow("该条码已扫");
@@ -191,6 +216,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         barcodeSet =  new HashSet<>() ;
         shared = new SharedFile(this) ;
 		scanDevice = new ScanDevice() ;
+
+        dbServer = new DBServer(this) ;
         initView() ;
     }
 
@@ -453,6 +480,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 if (!flag) {
                     FileUtil.cutFile(upFilepath, params[0], unfinishPath, params[0]);
                 }else{
+                    //更新数据库
+                    updateBarcode();
                     FileUtil.cutFile(upFilepath, params[0], finishPath, params[0]);
                 }
                 //先上传跟目录的
@@ -465,6 +494,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                         if (!flag) {
                             FileUtil.cutFile(upFilepath, fileName, unfinishPath, fileName);
                         }else{
+                            //更新数据库
+                            updateBarcode();
                             FileUtil.cutFile(upFilepath, fileName, finishPath, fileName);
                         }
                     }
@@ -479,6 +510,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                         if (!flag) {
 //                            FileUtil.cutFile(unfinishPath, fileName, unfinishPath,fileName);
                         }else{
+                            //更新数据库
+                            updateBarcode();
                             FileUtil.cutFile(unfinishPath, fileName, finishPath, fileName);
                         }
                     }
@@ -509,7 +542,23 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
 //                initView();
             }
         }
-    } ;
+    }
+
+    /**
+     * 更新条码状态
+     */
+    private void updateBarcode(){
+        /*
+        //先查询所有条码出来
+        List<Barcode> listBar =  dbServer.queryByFileName(fileName) ;
+        if(listBar != null && !listBar.isEmpty()){
+            for(Barcode b: listBar){
+                //再一个个更新
+                dbServer.updateBarcode(b,true);
+            }
+        }
+        */
+    }
 
 
     /**
