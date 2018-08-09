@@ -29,6 +29,7 @@
             android:launchMode="singleTask" ></activity>
         <activity android:name="com.psw.scanftp.MainActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" ></activity>
     </application>
 

@@ -93,6 +93,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private EditText edit24 ;
     private EditText edit25 ;
     private EditText edit26 ;
+    private EditText editBarCount ;
 
     String info1 ;
     String info2 ;
@@ -152,6 +153,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             android.util.Log.e("debug", "----codetype--" + temp);
             barcodeStr = new String(barocode, 0, barocodelen);
             //先查询数据库中此条码是否上传过
+            /*
             Barcode bar = dbServer.queryBarcode(barcodeStr) ;
             if(bar != null){
                 //if(bar.getIsUpload()){
@@ -159,9 +161,9 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                     return ;
                // }
             }
-
-            bar = new Barcode() ;
-            bar.setBarcode(barcodeStr);
+*/
+//            bar = new Barcode() ;
+//            bar.setBarcode(barcodeStr);
             if ( (barcodeSet == null|| barcodeSet.isEmpty()) && fileName == null) {
                 //第一次添加
                 barcodeSet.add(barcodeStr) ;
@@ -175,9 +177,9 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 //写入文件
                 writeToFile(fileName, info);
                 //写入数据库
-                bar.setUpload(false);
-                bar.setDate(fileName);
-                dbServer.insertBarcode(bar) ;
+//                bar.setUpload(false);
+//                bar.setDate(fileName);
+//                dbServer.insertBarcode(bar) ;
             }else{
                 //集合中不包含，则添加
                 if (!barcodeSet.contains(barcodeStr)) {
@@ -186,15 +188,15 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                     //写入文件
                     writeToFile(fileName, genSingleLine(barcodeStr));
                     //写入数据库
-                    bar.setUpload(false);
-                    bar.setDate(fileName);
-                    dbServer.insertBarcode(bar) ;
+//                    bar.setUpload(false);
+//                    bar.setDate(fileName);
+//                    dbServer.insertBarcode(bar) ;
                 }else{
                     //集合中包含则提示
                     ToastShow("该条码已扫");
                 }
             }
-
+            editBarCount.setText("" + barcodeSet.size() + "个");
             // tvResult.setText(barcodeStr);
             //写入TXT中
             scanDevice.stopScan();
@@ -266,6 +268,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
 
             }
         }) ;
+        editBarCount = (EditText) findViewById(R.id.editText_barcode_count) ;
         tv2 = (TextView) findViewById(R.id.textView_info_2) ;
         tv3 = (TextView) findViewById(R.id.textView_info_3) ;
         tv4 = (TextView) findViewById(R.id.textView_info_4) ;
@@ -495,7 +498,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                             FileUtil.cutFile(upFilepath, fileName, unfinishPath, fileName);
                         }else{
                             //更新数据库
-                            updateBarcode();
+                            //updateBarcode();
                             FileUtil.cutFile(upFilepath, fileName, finishPath, fileName);
                         }
                     }
@@ -511,7 +514,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
 //                            FileUtil.cutFile(unfinishPath, fileName, unfinishPath,fileName);
                         }else{
                             //更新数据库
-                            updateBarcode();
+                            //updateBarcode();
                             FileUtil.cutFile(unfinishPath, fileName, finishPath, fileName);
                         }
                     }
@@ -532,14 +535,16 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 fileName = null ;
                 barcodeSet.clear();
                 listEdit.get(0).setText("");
-//                initView();
+                editBarCount.setText("");
+                //initView();
 
             }else{
                 ToastShow("上传失败,文件保存在unfinish目录下") ;
                 fileName = null ;
                 barcodeSet.clear();
                 listEdit.get(0).setText("");
-//                initView();
+                editBarCount.setText("");
+                //initView();
             }
         }
     }
