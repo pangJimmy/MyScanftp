@@ -142,6 +142,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private DBServer dbServer ;
     //时间
     String date ;
+    //写入文件数据前半部分
+    private String infoStart ;
+    //写入文件数据后半部分
+    private  String infoEnd = "";
     //扫描接收广播
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
 
@@ -170,12 +174,13 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 edit2.append(barcodeStr+ ",\r\n") ;
                 //创建文件
                 date = Utils.getDate() ;
-                String fileName = date + ".txt" ;
+                String tools = listEdit.get(listConfig.size() - 1).getText().toString() ;
+                String fileName = date + "-"+ tools +".txt" ;
                 MainActivity.this.fileName = fileName ;
-                String info = "[" + workTypes +"]"+ "\r\n" + "[条码信息]"+"\r\n";
-                info =info + genSingleLine(barcodeStr);
+                infoStart = "[" + workTypes +"]"+ "\r\n"+ "[条码个数] :" + barcodeSet.size()+"个\r\n"  + "[条码信息]"+"\r\n";
+                infoEnd = infoEnd + genSingleLine(barcodeStr);
                 //写入文件
-                writeToFile(fileName, info);
+                writeToFile(fileName, infoStart + infoEnd);
                 //写入数据库
 //                bar.setUpload(false);
 //                bar.setDate(fileName);
@@ -186,7 +191,10 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                     barcodeSet.add(barcodeStr) ;
                     edit2.append(barcodeStr+ ",\r\n") ;
                     //写入文件
-                    writeToFile(fileName, genSingleLine(barcodeStr));
+                    infoStart = "[" + workTypes +"]"+ "\r\n"+ "[条码个数] :" + barcodeSet.size()+"个\r\n"  + "[条码信息]"+"\r\n";
+                    infoEnd = infoEnd + genSingleLine(barcodeStr);
+                    //写入文件
+                    writeToFile(fileName, infoStart + infoEnd);
                     //写入数据库
 //                    bar.setUpload(false);
 //                    bar.setDate(fileName);
@@ -597,7 +605,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 pathFile.mkdirs() ;
             }
             File desFile = new File(upFilepath + fileName) ;
-            FileWriter fw = new FileWriter(desFile,true) ;
+            FileWriter fw = new FileWriter(desFile) ;
             fw.write(temp) ;
             fw.flush() ;
             fw.close() ;
