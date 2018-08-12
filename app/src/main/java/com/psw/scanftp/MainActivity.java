@@ -146,6 +146,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
     private String infoStart ;
     //写入文件数据后半部分
     private  String infoEnd = "";
+    //运输工具号
+    private int transIndex = -1 ;
     //扫描接收广播
     private BroadcastReceiver scanReceiver = new BroadcastReceiver() {
 
@@ -174,7 +176,11 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
                 edit2.append(barcodeStr+ ",\r\n") ;
                 //创建文件
                 date = Utils.getDate() ;
-                String tools = listEdit.get(listConfig.size() - 1).getText().toString() ;
+                //String tools = listEdit.get(listConfig.size() - 1).getText().toString() ;
+                String tools = "" ;
+                if(transIndex != -1){
+                    tools = listEdit.get(transIndex).getText().toString() ;
+                }
                 String fileName = date + "-"+ tools +".txt" ;
                 MainActivity.this.fileName = fileName ;
                 infoStart = "[" + workTypes +"]"+ "\r\n"+ "[条码个数] :" + barcodeSet.size()+"个\r\n"  + "[条码信息]"+"\r\n";
@@ -444,6 +450,9 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
         while(index < (listConfig.size() )){
             listTV.get(index).setVisibility(View.VISIBLE) ;
             listTV.get(index).setText(listConfig.get(index) + ":") ;
+            if(listConfig.get(index).endsWith("运输工具号")){
+                transIndex = index ;
+            }
             listEdit.get(index).setVisibility(View.VISIBLE) ;
             Log.e("index","" + index + "---" + listConfig.get(index)) ;
             index++ ;
