@@ -171,6 +171,8 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
 //            bar = new Barcode() ;
 //            bar.setBarcode(barcodeStr);
             if ( (barcodeSet == null|| barcodeSet.isEmpty()) && fileName == null) {
+                barcodeSet = new HashSet<>() ;
+                infoEnd = "";
                 //第一次添加
                 barcodeSet.add(barcodeStr) ;
                 edit2.append(barcodeStr+ ",\r\n") ;
@@ -550,7 +552,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             if(result){
                 ToastShow("上传成功") ;
                 fileName = null ;
-                barcodeSet.clear();
+                barcodeSet= null;
                 listEdit.get(0).setText("");
                 editBarCount.setText("");
                 //initView();
@@ -558,7 +560,7 @@ public class MainActivity extends MBaseActivity implements OnClickListener{
             }else{
                 ToastShow("上传失败,文件保存在unfinish目录下") ;
                 fileName = null ;
-                barcodeSet.clear();
+                barcodeSet= null;
                 listEdit.get(0).setText("");
                 editBarCount.setText("");
                 //initView();
